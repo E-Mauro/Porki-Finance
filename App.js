@@ -1,14 +1,50 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  AsyncStorage,
+} from 'react-native';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+
+        <Text>Porki Finance App</Text>
+
+
+        <TouchableOpacity onPress={this.saveData}>
+          <Text>Click me to save data!</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.displayData}>
+          <Text>Click me to display data!</Text>
+        </TouchableOpacity>
+
       </View>
     );
   }
+
+  saveData() {
+    const user = 'Mauro';
+    AsyncStorage.setItem('user', user);
+
+  }
+
+  displayData = async () => {
+
+    try {
+      const user = await AsyncStorage.getItem('user');
+      alert(user);
+    }
+    catch (error) {
+      alert(error);
+    }
+
+  }
+
 }
 
 const styles = StyleSheet.create({
